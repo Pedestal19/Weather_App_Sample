@@ -23,22 +23,18 @@ const siteFolder = 'website';
 app.use(express.static(siteFolder));
 
 //Get Endpoint
-const resourceOkStatusCode = 200;
-const getUrl = '/api/v1/projectdata';
+const getUrl = '/myapi/v1';
 app.get(getUrl, (request, response) => {
-    response.status(resourceOkStatusCode).send(projectData)
+    response.send(projectData)
 })
 
-const resourceCreatedStatusCode = 201;
-const postUrl = '/api/v1/projectdata';
-app.post(postUrl, (request, response) => {
-recordToSave = {
-    temperature: request.body.temperature,
-    date: request.body.date,
-    userResponse: request.body.userResponse
-    };
+const postUrl = '/myapi/v1';
 
-    response.status(resourceCreatedStatusCode).send("resource created/record saved")
+
+app.post(postUrl, (request, response) => {
+    const {date, temperature, weatherResponse} = req.body
+    projectData[date] = {temperature,weatherResponse,}
+    response.send("resource created/record saved")
 })
 
 
@@ -46,4 +42,4 @@ recordToSave = {
 const port = 7777;
 app.listen(port, () => {
     console.log(`Running Node Server on Port: ${port}`)
-  })
+})
