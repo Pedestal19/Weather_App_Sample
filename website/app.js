@@ -27,7 +27,7 @@ const saveDataError = 'an error occured saving Data';
 
 // API details
 const url = 'https://api.openweathermap.org/data/2.5/weather'
-const APIKey = '72d4d799de2aecd4c7267456faf6e47b'
+const APIKey = '5df8f3f59f230db06bbf2242283b40d2'
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -35,20 +35,36 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 // Event listener to add function to existing HTML DOM element
 
-generateButton.addEventListener(designatedEvent, () => {
-    //chaining promises
-    getWeatherData()
-      .then(temp => {
-        return {date: newDate, temp, content: weatherResponse.value}
-      })
-      .then(data => {postData(postDataUrl, data)
-        return data
-      })
-      .then(({temp, date, content}) => updateUIPage(temp, date, content))
-      .catch(error => {
-        console.log(eventListenerButtonError, error);
-    })
-})
+// generateButton.addEventListener(designatedEvent, () => {
+//     //chaining promises
+//     getWeatherData()
+//       .then(temp => {
+//         return {date: newDate, temp, content: weatherResponse.value}
+//       })
+//       .then(data => {postData(postDataUrl, data)
+//         return data
+//       })
+//       .then(({temp, date, content}) => updateUIPage(temp, date, content))
+//       .catch(error => {
+//         console.log(eventListenerButtonError, error);
+//     })
+// })
+
+generateButton.addEventListener(designatedEvent, processApiConnection)
+function processApiConnection(event) {
+     //chaining promises
+     getWeatherData()
+     .then(temp => {
+       return {date: newDate, temp, content: weatherResponse.value}
+     })
+     .then(data => {postData(postDataUrl, data)
+       return data
+     })
+     .then(({temp, date, content}) => updateUIPage(temp, date, content))
+     .catch(error => {
+       console.log(eventListenerButtonError, error);
+   })
+};
 
 const updateUIPage = async (tempToDisplay, dateToDisplay, weatherResponseToDisplay) => {
     datehtml.innerHTML = dateToDisplay
@@ -58,7 +74,7 @@ const updateUIPage = async (tempToDisplay, dateToDisplay, weatherResponseToDispl
 
 /* GET Web API Data */
 const getWeatherData = async () => {
-    
+
     const zipCodeValue = zipCode.value;
     const unit = 'imperial';
     console.log(`zipcodevalue is ${zipCodeValue}`);
