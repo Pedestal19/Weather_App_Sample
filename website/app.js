@@ -17,7 +17,7 @@ const temphtml = document.getElementById(tempDisplayTextId);
 const contenthtml = document.getElementById(contentDisplayTextId);
 
 //server side post url
-const postDataUrl = '/api/v1/projectdata';
+const postDataUrl = '/myapi/v1';
 
 //error messages
 const eventListenerButtonError = 'an error occured getting weather, saving & displaying ui';
@@ -35,22 +35,9 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 // Event listener to add function to existing HTML DOM element
 
-// generateButton.addEventListener(designatedEvent, () => {
-//     //chaining promises
-//     getWeatherData()
-//       .then(temp => {
-//         return {date: newDate, temp, content: weatherResponse.value}
-//       })
-//       .then(data => {postData(postDataUrl, data)
-//         return data
-//       })
-//       .then(({temp, date, content}) => updateUIPage(temp, date, content))
-//       .catch(error => {
-//         console.log(eventListenerButtonError, error);
-//     })
-// })
 
 generateButton.addEventListener(designatedEvent, processApiConnection)
+
 function processApiConnection(event) {
      //chaining promises
      getWeatherData()

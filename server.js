@@ -32,7 +32,7 @@ const postUrl = '/myapi/v1';
 
 
 app.post(postUrl, (request, response) => {
-    const {date, temperature, weatherResponse} = req.body
+    const {date, temperature, weatherResponse} = request.body
     projectData[date] = {temperature,weatherResponse,}
     response.send("resource created/record saved")
 })
